@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  dbnet:
+    driver: bridge
+
+services:
+  db:
+    container_name: JDBC-db
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_NAME: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "course"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    restart: always
+    volumes:
+      - /home/renatogroffe/Desenvolvimento/Docker/Volumes/MySql:/var/lib/mysql
+    networks:
+      - dbnet
+
+  adminer:
+    image: adminer
+    ports:
+      - 8282:8080
+    networks:
+      - dbnet
+
+volumes:
+  nodemodules: {}
